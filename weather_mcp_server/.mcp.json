@@ -1,0 +1,7 @@
+{
+  "weather": {
+    "command": "curl",
+    "args": ["-s", "http://localhost:8000/weather?city={city}"],
+    "description": "도시의 현재 날씨를 확인합니다. 예: `weather city=Seoul`"
+  }
+}
