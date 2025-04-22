@@ -9,6 +9,13 @@ export interface WeatherData {
   pressure: number;
   sunrise?: number;
   sunset?: number;
+  title?: string;
+  visibility: number;
+  maxTemp: number;
+  minTemp: number;
+  uvIndex: number;
+  windSpeed: number;
+  timestamp: number;
 }
 
 export interface Location {
@@ -48,4 +55,11 @@ export interface AirQualityData {
     pm10: number;
     nh3: number;
   };
+}
+
+export interface WeatherStore {
+  currentWeather: WeatherData | null;
+  isLoading: boolean;
+  error: string | null;
+  fetchWeather: (city: string) => Promise<void>;
 }

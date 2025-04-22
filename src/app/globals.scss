@@ -1,0 +1,425 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$dawn-gradient: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+$morning-gradient: linear-gradient(to bottom, #fff1eb, #ace0f9);
+$evening-gradient: linear-gradient(to bottom, #a18cd1, #fbc2eb);
+$night-gradient: linear-gradient(to bottom, #0c1446, #2e3192);
+
+$semicircle-dawn: linear-gradient(to bottom, #ffb74d, #ff9a9e);
+$semicircle-morning: linear-gradient(to bottom, #ffd54f, #ffb74d);
+$semicircle-evening: linear-gradient(to bottom, #c79ecf, #a18cd1);
+$semicircle-night: linear-gradient(to bottom, #2e3192, #1a237e);
+
+@layer base {
+  :root {
+    --background: 248 249 250;
+    --foreground: 33 37 41;
+    --primary: 122 122 255;
+    --secondary: 255 107 107;
+    --muted: 173 181 189;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 33 37 41;
+      --foreground: 248 249 250;
+      --primary: 153 153 255;
+      --secondary: 255 137 137;
+      --muted: 173 181 189;
+    }
+  }
+
+  body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+      "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    @apply bg-neutral-100 overflow-hidden;
+  }
+}
+
+@layer components {
+  .weather-container {
+    @apply fixed inset-0 w-full h-full;
+    transition: background 1s ease;
+
+    &.weather-dawn {
+      background: $dawn-gradient;
+    }
+
+    &.weather-morning {
+      background: $morning-gradient;
+    }
+
+    &.weather-evening {
+      background: $evening-gradient;
+    }
+
+    &.weather-night {
+      background: $night-gradient;
+    }
+  }
+
+  .semicircle {
+    @apply absolute w-full h-[280px];
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    top: 0;
+    left: 0;
+    transform-origin: top center;
+    opacity: 0.8;
+    transition: background 1s ease;
+
+    &.semicircle-dawn {
+      background: $semicircle-dawn;
+    }
+
+    &.semicircle-morning {
+      background: $semicircle-morning;
+    }
+
+    &.semicircle-evening {
+      background: $semicircle-evening;
+    }
+
+    &.semicircle-night {
+      background: $semicircle-night;
+    }
+  }
+
+  .weather-content {
+    @apply relative z-10 h-full flex flex-col items-center justify-between p-8 text-center text-gray-800;
+
+    .location-text {
+      @apply text-lg font-medium mt-16;
+    }
+
+    .current-temp {
+      @apply text-[120px] font-semibold tracking-tighter mt-8;
+    }
+
+    .current-condition {
+      @apply text-2xl font-medium mb-8;
+    }
+
+    .weather-days {
+      @apply w-full max-w-sm space-y-4 mb-8;
+
+      .weather-day-item {
+        @apply flex items-center justify-between py-2;
+
+        .weather-day-name {
+          @apply text-base opacity-60;
+        }
+
+        .weather-day-temp {
+          @apply text-base font-medium;
+        }
+      }
+    }
+  }
+
+  .weather-icon {
+    @apply w-5 h-5 opacity-60;
+  }
+
+  .text-night {
+    @apply text-white;
+  }
+
+  .weather-card {
+    @apply relative w-full h-full max-w-md mx-auto bg-white rounded-[40px] p-8 overflow-hidden;
+  }
+
+  .weather-background {
+    @apply absolute inset-0 transition-colors duration-500;
+  }
+
+  .weather-background-sunny {
+    @apply bg-[#FFF8E7];
+  }
+
+  .weather-background-cloudy {
+    @apply bg-[#F8F9FA];
+  }
+
+  .weather-background-rain {
+    @apply bg-[#F1F3F5];
+  }
+
+  .weather-background-snow {
+    @apply bg-[#F8F9FA];
+  }
+
+  .weather-circle {
+    @apply absolute w-[280px] h-[280px] rounded-full transition-all duration-500;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+  }
+
+  .weather-circle-sunny {
+    @apply bg-[#FFB800];
+  }
+
+  .weather-circle-cloudy {
+    @apply bg-[#E9ECEF];
+  }
+
+  .weather-circle-rain {
+    @apply bg-[#CED4DA];
+  }
+
+  .weather-circle-snow {
+    @apply bg-[#E9ECEF];
+  }
+
+  .weather-icon-sunny {
+    background: radial-gradient(circle at top right, #ffb800 0%, transparent 70%);
+  }
+
+  .weather-icon-cloudy {
+    background: radial-gradient(circle at top right, #e2e8f0 0%, transparent 70%);
+  }
+
+  .weather-icon-snow {
+    background: radial-gradient(circle at top right, #e5e7eb 0%, transparent 70%);
+  }
+
+  .weather-icon-rain {
+    background: radial-gradient(circle at top right, #94a3b8 0%, transparent 70%);
+  }
+
+  .weather-icon-fog {
+    background: radial-gradient(circle at top right, #cbd5e1 0%, transparent 70%);
+  }
+
+  .weather-icon-overcast {
+    background: radial-gradient(circle at top right, #94a3b8 0%, transparent 70%);
+  }
+
+  .weather-icon-haze {
+    background: radial-gradient(circle at top right, #94a3b8 0%, transparent 70%);
+  }
+
+  .time-background-dawn {
+    @apply bg-gradient-to-br from-blue-100 via-blue-200 to-purple-200;
+  }
+
+  .time-background-morning {
+    @apply bg-gradient-to-br from-blue-50 via-blue-100 to-sky-200;
+  }
+
+  .time-background-afternoon {
+    @apply bg-gradient-to-br from-blue-100 via-sky-200 to-blue-300;
+  }
+
+  .time-background-evening {
+    @apply bg-gradient-to-br from-blue-200 via-purple-200 to-blue-300;
+  }
+
+  .button-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .button-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .input {
+    @apply bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 
+           rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 
+           transition-colors duration-200;
+  }
+
+  /* 날씨 아이콘 스타일 */
+  .weather-icon-small {
+    @apply w-6 h-6 bg-contain bg-no-repeat bg-center inline-block;
+  }
+
+  .weather-icon-small.sunny {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFB800'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
+  }
+
+  .weather-icon-small.cloudy {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23CBD5E1'%3E%3Cpath d='M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z'/%3E%3C/svg%3E");
+  }
+
+  /* 그래프 스타일 */
+  .chart-container {
+    @apply h-[200px] w-full min-w-[800px];
+  }
+
+  .chart-line {
+    @apply stroke-[#FFB800] stroke-2;
+  }
+
+  .chart-dot {
+    @apply fill-[#FFB800] rounded-full;
+    r: 2px;
+  }
+
+  .chart-tooltip {
+    @apply bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-lg border border-gray-100;
+  }
+
+  .star {
+    @apply absolute w-[2px] h-[2px] bg-white rounded-full opacity-0;
+    animation: twinkle 2s infinite;
+  }
+
+  /* 빈 상태 애니메이션 */
+  .fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 검색 버튼 애니메이션 */
+  .search-button {
+    transition: transform 0.2s ease;
+  }
+
+  .search-button:hover {
+    transform: scale(1.05);
+  }
+
+  .search-button-highlight {
+    animation: buttonPulse 2s infinite;
+  }
+
+  .search-button-highlight .button-glow {
+    animation: buttonGlow 2s infinite;
+  }
+
+  @keyframes buttonPulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes buttonGlow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  /* 시간대별 텍스트 색상 */
+  .text-time-dawn {
+    @apply text-orange-900;
+  }
+
+  .text-time-morning {
+    @apply text-blue-900;
+  }
+
+  .text-time-evening {
+    @apply text-amber-100;
+  }
+
+  .text-time-night {
+    @apply text-sky-100;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* 스와이프 관련 스타일 */
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+/* 툴팁 스타일 */
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.swiper {
+  position: static !important;
+
+  &-pagination {
+    position: absolute !important;
+    bottom: 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 20;
+
+    &-bullet {
+      width: 8px !important;
+      height: 8px !important;
+      display: inline-block;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.3) !important;
+      margin: 0 4px !important;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &-active {
+        background: rgba(0, 0, 0, 0.8) !important;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.weather {
+  &-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &-forecast {
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1));
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 48px;
+    margin-bottom: 0;
+  }
+}
