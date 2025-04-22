@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(root_path="/api")
 
 # CORS 미들웨어 추가
 app.add_middleware(
