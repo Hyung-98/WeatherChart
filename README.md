@@ -1,147 +1,92 @@
-# Weather Application
+# Weather App
 
-한국 도시들의 날씨 정보를 제공하는 풀스택 웹 애플리케이션입니다. Next.js와 FastAPI를 사용하여 구현되었으며, OpenWeather API를 통해 실시간 날씨 데이터를 제공합니다.
+실시간 날씨 정보를 제공하는 Next.js 기반의 웹 애플리케이션입니다. 이 앱은 OpenWeatherMap API를 사용하여 전 세계 도시의 날씨 정보를 시각적으로 표시합니다.
 
 ## 주요 기능
 
-- 🌍 한국 도시들의 실시간 날씨 정보 조회
-- 🌡️ 온도, 습도, 체감 온도 등 상세 날씨 정보 제공
-- 🗺️ 위도/경도 기반 날씨 검색
-- 📅 5일간의 일기 예보
-- 💨 대기질 정보 제공
-- 🔄 자동 도시명 한영 변환 지원
+- 실시간 날씨 정보 조회
+- 도시 검색 기능
+- 시간대별 날씨 차트 표시
+- 반응형 디자인
+- 다크 모드 지원
 
 ## 기술 스택
 
-### Frontend
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: SCSS + Tailwind CSS
+- **상태 관리**: Zustand
+- **아이콘**: Heroicons
+- **차트**: Recharts
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Zustand (상태 관리)
-
-### Backend
-
-- FastAPI (Python)
-- python-dotenv
-- requests
-
-### API
-
-- OpenWeather API
-
-## 시작하기
-
-### 사전 요구사항
-
-- Node.js 18.0.0 이상
-- Python 3.8 이상
-- OpenWeather API 키
-
-### 환경 설정
+## 설치 방법
 
 1. 저장소 클론
 
 ```bash
-git clone <repository-url>
+git clone [repository-url]
 cd weather-app
 ```
 
-2. 프론트엔드 의존성 설치
+2. 의존성 설치
 
 ```bash
 npm install
 ```
 
-3. 백엔드 의존성 설치
+3. 환경 변수 설정
 
 ```bash
-pip install -r requirements.txt
+# .env.local 파일 생성
+NEXT_PUBLIC_OPENWEATHER_API_KEY=your_api_key_here
 ```
 
-4. 환경 변수 설정
-
-- 프로젝트 루트에 `.env` 파일 생성:
-
-```
-OPENWEATHER_API_KEY=your_api_key_here
-```
-
-- `.env.local` 파일 생성:
-
-```
-NEXT_PUBLIC_API_BASE_URL=/api
-```
-
-### 개발 서버 실행
-
-1. 백엔드 서버 실행
-
-```bash
-cd src/api
-uvicorn index:app --reload
-```
-
-2. 프론트엔드 개발 서버 실행
+4. 개발 서버 실행
 
 ```bash
 npm run dev
 ```
-
-## API 엔드포인트
-
-### 날씨 정보
-
-- `GET /api/weather?city={city_name}` - 도시 이름으로 날씨 조회
-- `GET /api/weather/coordinates?lat={latitude}&lon={longitude}` - 좌표로 날씨 조회
-- `GET /api/weather/forecast?city={city_name}` - 도시의 5일 예보 조회
-- `GET /api/weather/air-quality?lat={latitude}&lon={longitude}` - 대기질 정보 조회
-
-## Vercel 배포
-
-1. GitHub 저장소에 코드 푸시
-
-2. Vercel에서 새 프로젝트 생성
-
-   - Framework Preset: Next.js
-   - Root Directory: ./
-   - Build Command: `next build`
-   - Install Command: `npm install && pip install -r requirements.txt`
-
-3. 환경 변수 설정
-
-   - `OPENWEATHER_API_KEY`: OpenWeather API 키
-   - `NEXT_PUBLIC_API_BASE_URL`: `/api`
-
-4. Deploy 버튼 클릭
 
 ## 프로젝트 구조
 
 ```
 weather-app/
 ├── src/
-│   ├── api/              # FastAPI 백엔드
-│   │   └── index.py      # API 엔드포인트
-│   ├── app/              # Next.js 프론트엔드
-│   ├── components/       # React 컴포넌트
-│   ├── store/           # Zustand 상태 관리
-│   └── types/           # TypeScript 타입 정의
-├── public/              # 정적 파일
-├── .env                 # 백엔드 환경 변수
-├── .env.local          # 프론트엔드 환경 변수
-├── requirements.txt     # Python 의존성
-├── package.json        # Node.js 의존성
-└── vercel.json         # Vercel 배포 설정
+│   ├── app/
+│   │   ├── globals.scss
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── SearchInput.tsx
+│   │   ├── WeatherChart.tsx
+│   │   ├── WeatherDetails.tsx
+│   │   └── WeatherDisplay.tsx
+│   ├── store/
+│   │   └── weatherStore.ts
+│   ├── types/
+│   │   └── weather.ts
+│   └── utils/
+│       └── weatherIcons.tsx
+├── public/
+├── postcss.config.js
+├── tailwind.config.ts
+└── package.json
 ```
 
-## 라이선스
+## 스타일링
 
-MIT License
+이 프로젝트는 SCSS와 Tailwind CSS를 함께 사용합니다:
 
-## 기여하기
+- `globals.scss`: 전역 스타일 및 커스텀 스타일 정의
+- Tailwind CSS: 유틸리티 클래스 기반의 스타일링
+- PostCSS: SCSS와 Tailwind의 통합을 위한 설정
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## 날씨 아이콘
+
+날씨 상태에 따른 아이콘은 Heroicons를 사용하여 구현되었으며, `weatherIcons.tsx`에서 관리됩니다. 다음과 같은 날씨 상태를 지원합니다:
+
+- Clear (맑음)
+- Clouds (구름)
+- Rain (비)
+- Snow (눈)
+- Thunderstorm (천둥번개)
+- 기타 기상 조건
