@@ -332,7 +332,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = () => {
     return (
       <div className={`weather-container weather-${timeOfDay} flex items-center justify-center`}>
         <div className="text-center text-white p-4">
-          <p className="text-lg font-semibold">오류가 발생했습니다</p>
+          <p className="text-lg font-semibold">오류가 발생했습니다.</p>
           <p className="text-sm mt-2">{error}</p>
         </div>
       </div>
