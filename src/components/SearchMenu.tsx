@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { XMarkIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { useWeatherStore } from "@/store/weatherStore";
+// import { useWeatherStore } from "@/store/weatherStore";
 import { WeatherData } from "@/types/weather";
 
 interface SearchMenuProps {
@@ -20,7 +20,7 @@ const SearchMenu: React.FC<SearchMenuProps> = ({ isOpen, onClose, onAddWeather }
   const [searchTerm, setSearchTerm] = useState("");
   const [searchHistory, setSearchHistory] = useState<SearchHistory[]>([]);
   const [searchResult, setSearchResult] = useState<WeatherData | null>(null);
-  const { fetchWeather } = useWeatherStore();
+  // const { fetchWeather } = useWeatherStore();
 
   useEffect(() => {
     const history = localStorage.getItem("searchHistory");

@@ -135,15 +135,6 @@ const CITY_NAME_MAPPING: { [key: string]: string } = {
   "Jungnang-gu": "중랑구",
 };
 
-// 한글-영문 도시명 매핑 생성
-const KOREAN_TO_ENGLISH_MAPPING: { [key: string]: string } = Object.entries(CITY_NAME_MAPPING).reduce(
-  (acc, [eng, kor]) => ({
-    ...acc,
-    [kor]: eng,
-  }),
-  {}
-);
-
 interface WeatherStore {
   currentWeather: WeatherData | null;
   forecast: ForecastData | null;

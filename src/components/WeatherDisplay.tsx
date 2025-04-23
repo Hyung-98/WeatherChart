@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Bars3Icon, EllipsisVerticalIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchMenu from "./SearchMenu";
+import { getWeatherIcon } from "@/utils/weatherIcons";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -14,69 +15,6 @@ interface WeatherDisplayProps {
   weatherData: WeatherData;
   className?: string;
 }
-
-const WeatherIcon = ({ condition }: { condition: string }) => {
-  const getIcon = () => {
-    switch (condition) {
-      case "Clear":
-        return (
-          <svg className="weather-icon" viewBox="0 0 24 24" fill="currentColor">
-            <circle cx="12" cy="12" r="5" />
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-          </svg>
-        );
-      case "Clouds":
-        return (
-          <svg className="weather-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
-          </svg>
-        );
-      case "Rain":
-      case "Drizzle":
-        return (
-          <svg className="weather-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 16.2A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25" />
-            <path d="M8 19v2M8 13v2M16 19v2M16 13v2M12 21v2M12 15v2" strokeWidth="2" />
-          </svg>
-        );
-      case "Snow":
-        return (
-          <svg className="weather-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" />
-            <path d="M8 16h.01M8 20h.01M12 18h.01M12 22h.01M16 16h.01M16 20h.01" />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
-
-  return getIcon();
-};
-
-const Stars = () => {
-  const [stars, setStars] = useState<{ id: number; style: React.CSSProperties }[]>([]);
-
-  useEffect(() => {
-    const newStars = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      style: {
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 2}s`,
-      },
-    }));
-    setStars(newStars);
-  }, []);
-
-  return (
-    <>
-      {stars.map((star) => (
-        <div key={star.id} className="star" style={star.style} />
-      ))}
-    </>
-  );
-};
 
 const ForecastDay = ({
   day,
@@ -87,12 +25,14 @@ const ForecastDay = ({
   temp: { min: number; max: number };
   condition: string;
 }) => {
+  const weatherIcon = getWeatherIcon(condition);
+
   return (
     <div className="flex items-center justify-between py-3">
       <span className="text-base opacity-60">{day}</span>
       <div className="flex items-center gap-4">
-        <WeatherIcon condition={condition} />
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6">{weatherIcon}</div>
           <span className="text-base font-medium text-blue-500">{temp.min}°</span>
           <span className="text-base font-medium">{temp.max}°</span>
         </div>
@@ -203,6 +143,7 @@ const WeatherCard = ({
   const generateForecast = (baseTemp: number) => {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const today = new Date().getDay();
+    const conditions = ["Clear", "Clouds", "Rain", "Snow", "Thunderstorm", "Drizzle", "Mist"];
 
     interface ForecastItem {
       day: string;
@@ -224,7 +165,7 @@ const WeatherCard = ({
             min: Math.round(baseTemp + (Math.random() - 0.8) * 5),
             max: Math.round(baseTemp + (Math.random() + 0.3) * 5),
           },
-          condition: weather.condition,
+          condition: conditions[Math.floor(Math.random() * conditions.length)],
         })
       );
   };
@@ -289,7 +230,10 @@ const WeatherCard = ({
         <div className="location-text">{weather.city}</div>
         <div>
           <div className="current-temp">{Math.round(weather.temperature)}°</div>
-          <div className="current-condition">{weather.condition}</div>
+          <div className="current-condition flex items-center justify-center gap-2">
+            <div className="w-8 h-8 flex items-center justify-center">{getWeatherIcon(weather.condition)}</div>
+            <span>{weather.condition}</span>
+          </div>
           <div className="text-lg mt-2 opacity-80">{currentTime}</div>
         </div>
       </div>
@@ -300,6 +244,30 @@ const WeatherCard = ({
         ))}
       </div>
     </div>
+  );
+};
+
+const Stars = () => {
+  const [stars, setStars] = useState<{ id: number; style: React.CSSProperties }[]>([]);
+
+  useEffect(() => {
+    const newStars = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      style: {
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 2}s`,
+      },
+    }));
+    setStars(newStars);
+  }, []);
+
+  return (
+    <>
+      {stars.map((star) => (
+        <div key={star.id} className="star" style={star.style} />
+      ))}
+    </>
   );
 };
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import WeatherDisplay from "@/components/WeatherDisplay";
-import WeatherLayout from "@/components/WeatherLayout";
+// import WeatherLayout from "@/components/WeatherLayout";
 import { useWeatherStore } from "@/store/weatherStore";
 
 export default function Home() {
@@ -40,28 +40,6 @@ export default function Home() {
       </div>
     );
   }
-
-  // 추가 날씨 카드 데이터 생성
-  const additionalCards = [
-    {
-      ...currentWeather,
-      title: "오후",
-      temperature: currentWeather.temperature + 2,
-      condition: "Sunny",
-    },
-    {
-      ...currentWeather,
-      title: "저녁",
-      temperature: currentWeather.temperature + 1,
-      condition: "Cloudy",
-    },
-    {
-      ...currentWeather,
-      title: "밤",
-      temperature: currentWeather.temperature - 1,
-      condition: "Rain",
-    },
-  ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-sky-100 to-sky-200">
